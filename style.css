@@ -6,6 +6,10 @@ body {
     width: 30rem;
 }
 
+.card-body {
+    border-radius: 0.375rem;
+}
+
 .container {
     min-height: 100vh;
     /* background-color: #007AFF !important; */
@@ -21,4 +25,9 @@ body {
     padding-top: 12px;
     display: flex;
     justify-content: space-between;
+}
+
+.quiz-answer-card:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.05);
 }
