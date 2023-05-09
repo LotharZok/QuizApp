@@ -59,3 +59,14 @@ body {
 .restart {
     margin-top: 16px;
 }
+
+/* #cardInfo {
+    font-size: 13px;
+} */
+
+.cardInfo {
+    border: 1px solid lightgray;
+    min-height: 50px;
+    margin-bottom: 8px;
+    font-size: 13px;
+}

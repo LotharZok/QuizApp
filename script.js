@@ -4,6 +4,8 @@
 let currentQuestion = 0;
 let currentListOfQuestions = questionsErdkunde;
 let correctAnswers = 0;
+let AUDIO_SUCCESS = new Audio('sound/success.mp3');
+let AUDIO_FAILURE = new Audio('sound/failure.mp3');
 
 
 /*
@@ -35,7 +37,6 @@ function startQuiz(quiz) {
             currentListOfQuestions = questionsBundesliga;
             break;
         default:
-            // currentListOfQuestions = questionsErdkunde;
             // Wiederholt das gerade gespielte Quiz
     }
     document.getElementById('maxQuestions').innerHTML = currentListOfQuestions.length;
@@ -57,6 +58,14 @@ function showQuestion() {
         curElem.innerHTML = question[`answer_${i}`]
     }
     document.getElementById('noOfCurrentQuestion').innerHTML = currentQuestion + 1;
+    refreshProgressBar();
+}
+
+
+/*
+ *  Aktualisiert die ProgressBar
+ */
+function refreshProgressBar() {
     let percent = Math.round(((currentQuestion + 1) / currentListOfQuestions.length) * 100);
     document.getElementById('progress-bar').innerHTML = `${percent} %`;
     document.getElementById('progress-bar').style.width = `${percent}%`;
@@ -70,18 +79,20 @@ function showQuestion() {
  */
 function makeAnswer(answer) {
     if (currentListOfQuestions[currentQuestion]['correct_answer'] == answer) {
+        AUDIO_SUCCESS.play();
         document.getElementById(`answer_${answer}`).classList.add('bg-color-correct');
         correctAnswers++;
     } else {
+        AUDIO_FAILURE.play();
         document.getElementById(`answer_${answer}`).classList.add('bg-color-wrong');
         document.getElementById(`answer_${currentListOfQuestions[currentQuestion]['correct_answer']}`).classList.add('bg-color-correct');
     }
+    // Weiteren Klick auf die Antworten verhindern
+    switchCardClick('off');
     // Enable next-button, wenn noch nicht die letzte Frage erreicht wurde
-    if (currentQuestion < currentListOfQuestions.length - 1) {  // length-1 weil currentQuestion bei 0 beginnt
-        document.getElementById('next-button').disabled = false;
-    } else {
-        showResult();
-    }
+    (currentQuestion < currentListOfQuestions.length - 1) ? document.getElementById('next-button').disabled = false : document.getElementById('next-button').disabled = true;
+    // Info zur Frage anzeigen
+    document.getElementById('cardInfo').innerHTML = `${currentListOfQuestions[currentQuestion]['info']}`;
 }
 
 
@@ -89,8 +100,10 @@ function makeAnswer(answer) {
  *  Zeigt die nächste Frage an
  */
 function nextQuestion() {
+    document.getElementById('cardInfo').innerHTML = '';
     document.getElementById('next-button').disabled = true;
     currentQuestion++;
+    switchCardClick('on');  // Klicken auf die Karten wieder ermöglichen
     showQuestion();
 }
 
@@ -106,6 +119,9 @@ function resetAnswerButton(buttonElement) {
 }
 
 
+/*
+ *  Zeigt das Endresultat an
+ */
 function showResult() {
     document.getElementById('score').innerHTML = correctAnswers;
     document.getElementById('noQuestions').innerHTML = currentListOfQuestions.length;
@@ -116,8 +132,23 @@ function showResult() {
 }
 
 
+/* 
+ *  Setzt Parameter für den Startbildschirm zurück. Notwendig, wenn ein Quiz erneut gespielt werden soll.
+ */
 function showStartScreen() {
     document.getElementById('headerImage').src = 'img/pencil.jpg';
     document.getElementById('quizFinished').style = 'display: none;';
     document.getElementById('quizRunning').style = '';
+}
+
+
+/*
+ *  Wechselt den Inhalt des onclick bei den Antwortschaltflächen
+ */
+function switchCardClick(mode) {
+    for (let i =1; i <= 4; i++) {
+        let curElem = document.getElementById(`card_${i}`);
+        // (mode == 'on') ? curElem.onclick = `makeAnswer('${i}');` : curElem.onclick = '';
+        (mode == 'on') ? curElem.setAttribute('onclick', `makeAnswer('${i}');`) : curElem.onclick = '';
+    }
 }

@@ -60,34 +60,38 @@
             <div class="card-body" id="quizRunning">
                 <h5 class="card-title" id="question">Frage</h5>
 
-                <div class="card quiz-answer-card mb-2" onclick="makeAnswer('1')">
+                <div class="card quiz-answer-card mb-2" id="card_1" onclick="makeAnswer('1')">
                     <div class="card-body" id="answer_1">
                         Antwort
                     </div>
                 </div>
 
-                <div class="card quiz-answer-card mb-2" onclick="makeAnswer('2')">
+                <div class="card quiz-answer-card mb-2" id="card_2" onclick="makeAnswer('2')">
                     <div class="card-body" id="answer_2">
                         Antwort
                     </div>
                 </div>
 
-                <div class="card quiz-answer-card mb-2" onclick="makeAnswer('3')">
+                <div class="card quiz-answer-card mb-2" id="card_3" onclick="makeAnswer('3')">
                     <div class="card-body" id="answer_3">
                         Antwort
                     </div>
                 </div>
 
-                <div class="card quiz-answer-card mb-2" onclick="makeAnswer('4')">
+                <div class="card quiz-answer-card mb-2" id="card_4" onclick="makeAnswer('4')">
                     <div class="card-body" id="answer_4">
                         Antwort
                     </div>
                 </div>
 
+                <div class="card-body cardInfo">
+                    <b>Info:</b> <span id="cardInfo"></span>
+                </div>
+
                 <div class="question-footer">
                     <span><b id="noOfCurrentQuestion">1</b> von <b id="maxQuestions"></b> Fragen</span>
-                    <button class="btn btn-primary" id="next-button" disabled onclick="nextQuestion()">Nächste
-                        Frage</button>
+                    <button class="btn btn-primary" id="next-button" disabled onclick="nextQuestion()">Nächste Frage</button>
+                    <button class="btn btn-primary" id="close-button" onclick="showResult()">Quiz beenden</button>
                 </div>
 
             </div>
