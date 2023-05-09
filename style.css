@@ -2,6 +2,10 @@ body {
     background-color: #007AFF !important;
 }
 
+.nav-link {
+    cursor: pointer;
+}
+
 .quiz-card {
     width: 30rem;
 }
@@ -30,4 +34,12 @@ body {
 .quiz-answer-card:hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+.bg-color-correct {
+    background-color: lightgreen;
+}
+
+.bg-color-wrong {
+    background-color: lightcoral;
 }
