@@ -25,25 +25,39 @@
     <!-- As a heading -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">QuizApp</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link" onclick="startQuiz('Erdkunde')">Erdkunde</a>
-              <a class="nav-link" onclick="startQuiz('Bundesliga')">Bundesliga</a>
-              <!-- <a class="nav-link" href="#">Pricing</a>
+            <a class="navbar-brand" href="#">QuizApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" onclick="startQuiz('Erdkunde')">Erdkunde</a>
+                    <a class="nav-link" onclick="startQuiz('Bundesliga')">Bundesliga</a>
+                    <!-- <a class="nav-link" href="#">Pricing</a>
               <a class="nav-link disabled">Disabled</a> -->
+                </div>
             </div>
-          </div>
         </div>
-      </nav>
+    </nav>
 
     <div class="container">
         <div class="card quiz-card">
-            <img src="img/pencil.jpg" class="card-img-top" alt="Quiz">
-            <div class="card-body">
+            <img src="img/pencil.jpg" class="card-img-top imgTrophy" alt="Quiz" id="headerImage">
+
+            <div id="progress" class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100">
+                <div id="progress-bar" class="progress-bar bg-success" style="width: 25%">25%</div>
+            </div>
+
+            <div class="card-body" id="quizFinished" style="display: none;">
+                <h5 class="card-title">Das Quiz ist beendet</h5>
+                <!-- <div><img src="img/trophy.png" alt="Trophäe" id="imgTrophy"></div> -->
+                <div class="score">Dein Score: <b><span id="score"></span></b> von <b><span id="noQuestions"></span></b></div>
+                <div class="restart"><button onclick="startQuiz();" class="btn btn-primary">Erneut spielen</button></div>
+            </div>
+
+            <div class="card-body" id="quizRunning">
                 <h5 class="card-title" id="question">Frage</h5>
 
                 <div class="card quiz-answer-card mb-2" onclick="makeAnswer('1')">
@@ -72,7 +86,8 @@
 
                 <div class="question-footer">
                     <span><b id="noOfCurrentQuestion">1</b> von <b id="maxQuestions"></b> Fragen</span>
-                    <button class="btn btn-primary">Nächste Frage</button>
+                    <button class="btn btn-primary" id="next-button" disabled onclick="nextQuestion()">Nächste
+                        Frage</button>
                 </div>
 
             </div>

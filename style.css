@@ -16,7 +16,6 @@ body {
 
 .container {
     min-height: 100vh;
-    /* background-color: #007AFF !important; */
     height: 100vh;
 
     display: flex;
@@ -42,4 +41,21 @@ body {
 
 .bg-color-wrong {
     background-color: lightcoral;
+}
+
+#quizFinished {
+    text-align: center;
+}
+
+.score {
+    padding-top: 16px;
+    font-size: 20px;
+}
+
+.progress {
+    margin: 4px;
+}
+
+.restart {
+    margin-top: 16px;
 }

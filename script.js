@@ -3,6 +3,7 @@
  */
 let currentQuestion = 0;
 let currentListOfQuestions = questionsErdkunde;
+let correctAnswers = 0;
 
 
 /*
@@ -24,16 +25,21 @@ function init() {
  */
 function startQuiz(quiz) {
     currentQuestion = 0;
-    switch(quiz) {
+    correctAnswers = 0;
+
+    switch (quiz) {
         case 'Erdkunde':
             currentListOfQuestions = questionsErdkunde;
-        break;
+            break;
         case 'Bundesliga':
             currentListOfQuestions = questionsBundesliga;
-        break;
+            break;
         default:
-            currentListOfQuestions = questionsErdkunde;
+            // currentListOfQuestions = questionsErdkunde;
+            // Wiederholt das gerade gespielte Quiz
     }
+    document.getElementById('maxQuestions').innerHTML = currentListOfQuestions.length;
+    showStartScreen();
     showQuestion();
 }
 
@@ -46,9 +52,14 @@ function showQuestion() {
 
     document.getElementById('question').innerHTML = question['question'];
     for (let i = 1; i <= 4; i++) {
-        document.getElementById(`answer_${i}`).innerHTML = question[`answer_${i}`]   
+        let curElem = document.getElementById(`answer_${i}`);
+        resetAnswerButton(curElem);
+        curElem.innerHTML = question[`answer_${i}`]
     }
     document.getElementById('noOfCurrentQuestion').innerHTML = currentQuestion + 1;
+    let percent = Math.round(((currentQuestion + 1) / currentListOfQuestions.length) * 100);
+    document.getElementById('progress-bar').innerHTML = `${percent} %`;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
 }
 
 
@@ -60,8 +71,53 @@ function showQuestion() {
 function makeAnswer(answer) {
     if (currentListOfQuestions[currentQuestion]['correct_answer'] == answer) {
         document.getElementById(`answer_${answer}`).classList.add('bg-color-correct');
+        correctAnswers++;
     } else {
         document.getElementById(`answer_${answer}`).classList.add('bg-color-wrong');
         document.getElementById(`answer_${currentListOfQuestions[currentQuestion]['correct_answer']}`).classList.add('bg-color-correct');
     }
+    // Enable next-button, wenn noch nicht die letzte Frage erreicht wurde
+    if (currentQuestion < currentListOfQuestions.length - 1) {  // length-1 weil currentQuestion bei 0 beginnt
+        document.getElementById('next-button').disabled = false;
+    } else {
+        showResult();
+    }
+}
+
+
+/*
+ *  Zeigt die nächste Frage an
+ */
+function nextQuestion() {
+    document.getElementById('next-button').disabled = true;
+    currentQuestion++;
+    showQuestion();
+}
+
+
+/*
+ *  Entfernt die Markierungen von den Antwort-Elementen
+ *
+ *  @Param {element} buttonElement - Das Element, daß einen Antwort-Button repräsentiert
+ */
+function resetAnswerButton(buttonElement) {
+    buttonElement.classList.remove('bg-color-correct');
+    buttonElement.classList.remove('bg-color-wrong');
+}
+
+
+function showResult() {
+    document.getElementById('score').innerHTML = correctAnswers;
+    document.getElementById('noQuestions').innerHTML = currentListOfQuestions.length;
+    document.getElementById('headerImage').src = 'img/trophy.png';
+    // Auswertung anzeigen
+    document.getElementById('quizFinished').style = '';
+    document.getElementById('quizRunning').style = 'display: none;';
+}
+
+
+function showStartScreen() {
+    document.getElementById('headerImage').src = 'img/pencil.jpg';
+    document.getElementById('quizFinished').style = 'display: none;';
+    document.getElementById('quizRunning').style = '';
 }

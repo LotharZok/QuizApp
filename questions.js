@@ -162,5 +162,13 @@ let questionsBundesliga = [
         answer_3: "Borussia Mönchengladbach",
         answer_4: "Eintracht Frankfurt",
         correct_answer: 3
+    },
+    {
+        question: "Welcher Club wurde als Aufsteiger in die Bundesliga deutscher Meister?",
+        answer_1: "Werder Bremen",
+        answer_2: "1. FC Kaiserslautern",
+        answer_3: "VfB Stuttgart",
+        answer_4: "Bayern München",
+        correct_answer: 2
     }
 ];
