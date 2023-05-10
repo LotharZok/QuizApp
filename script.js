@@ -139,6 +139,7 @@ function showStartScreen() {
     document.getElementById('headerImage').src = 'img/pencil.jpg';
     document.getElementById('quizFinished').style = 'display: none;';
     document.getElementById('quizRunning').style = '';
+    document.getElementById('cardInfo').innerHTML = '';
 }
 
 
